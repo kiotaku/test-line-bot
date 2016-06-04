@@ -67,4 +67,5 @@ app.post('/callback', function(req, res){
 
 });
 
+console.log('start');
 https.createServer(options, app).listen(process.env.PORT);
