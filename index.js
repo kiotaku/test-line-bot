@@ -20,6 +20,7 @@ app.use(bodyParser.json());                        // JSONのパースを楽に�
 app.post('/callback', function(req, res){
 
     //ヘッダーを定義
+    console.log('define headers');
     var headers = {
         'Content-Type' : 'application/json; charset=UTF-8',
         'X-Line-ChannelID' : process.env.LINE_CHANNEL_ID,
@@ -28,11 +29,13 @@ app.post('/callback', function(req, res){
     };
 
     // 送信相手の設定（配列）
+    console.log('set to user');
     var to_array = [];
     to_array.push(req.body['result'][0]['content']['from']);
 
 
     // 送信データ作成
+    console.log('make sending data');
     var data = {
         'to': to_array,
         'toChannel': 1383378250, //固定
@@ -50,6 +53,7 @@ app.post('/callback', function(req, res){
     };
 
     //オプションを定義
+    console.log('define options');
     var options = {
         url: 'https://trialbot-api.line.me/v1/events',
         headers: headers,
@@ -57,6 +61,7 @@ app.post('/callback', function(req, res){
         body: data
     };
 
+    console.log('post data');
     request.post(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
